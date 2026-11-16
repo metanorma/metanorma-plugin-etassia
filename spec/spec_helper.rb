@@ -1,4 +1,4 @@
-require "metanorma/plugin/sirena"
+require "metanorma/plugin/etassia"
 require "asciidoctor"
 require "fileutils"
 Dir[File.join(__dir__, "support", "*.rb")].each { |f| require f }

@@ -5,12 +5,12 @@ require_relative "plantuml_rendering"
 
 module Metanorma
   module Plugin
-    module Sirena
+    module Etassia
       # Drop-in for the `plantuml_image::file.puml[]` block macro that
       # metanorma-standoc registers (from metanorma-plugin-plantuml): the file
       # is read relative to the document, includes also resolve beside it, and
       # the image lands where the `[plantuml]` block's does, but the diagram is
-      # rendered by Sirena (SVG) instead of the PlantUML JAR (PNG).
+      # rendered by Etassia (SVG) instead of the PlantUML JAR (PNG).
       class PlantumlImageMacroProcessor <
             ::Asciidoctor::Extensions::BlockMacroProcessor
         include PlantumlRendering

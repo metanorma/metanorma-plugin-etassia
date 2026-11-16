@@ -3,20 +3,20 @@
 require "asciidoctor"
 require "fileutils"
 require "pathname"
-require "sirena"
-require "sirena/notation/plantuml"
+require "etassia"
+require "etassia/notation/plantuml"
 require_relative "plantuml_preprocessor"
 
 module Metanorma
   module Plugin
-    module Sirena
+    module Etassia
       # What the `[plantuml]` block and the `plantuml_image::file.puml[]`
-      # block macro share: format selection, include expansion, Sirena
+      # block macro share: format selection, include expansion, Etassia
       # rendering, output naming and the emitted image block. The host class
       # is an Asciidoctor processor (it supplies `create_image_block` and
       # `create_listing_block`).
       #
-      # Sirena renders SVG only, so `png`, `pdf`, `txt` and `eps` requests are
+      # Etassia renders SVG only, so `png`, `pdf`, `txt` and `eps` requests are
       # reported and the block falls back to a PlantUML listing, exactly like
       # any other render failure.
       module PlantumlRendering
@@ -73,7 +73,7 @@ module Metanorma
           known.empty? ? [DEFAULT_FORMAT] : known
         end
 
-        # Drops (with a warning) the formats Sirena cannot produce so the
+        # Drops (with a warning) the formats Etassia cannot produce so the
         # others still render; raises when none is left.
         def renderable(formats)
           kept, dropped = formats.partition { |f| RENDERABLE_FORMATS.include?(f) }
@@ -84,7 +84,7 @@ module Metanorma
         end
 
         def unsupported(format)
-          "Sirena renders SVG only; format '#{format}' is unsupported"
+          "Etassia renders SVG only; format '#{format}' is unsupported"
         end
 
         def normalise(format)
@@ -94,7 +94,7 @@ module Metanorma
         def generate_file(parent, source, format, attrs, stem, extra_dirs)
           raise unsupported(format) unless RENDERABLE_FORMATS.include?(format)
 
-          svg = ::Sirena.render(preprocess(source, parent.document, attrs,
+          svg = ::Etassia.render(preprocess(source, parent.document, attrs,
                                            extra_dirs))
           localdir, relative = output_dirs(parent.document)
           filename = "#{stem}.#{format}"
@@ -131,7 +131,7 @@ module Metanorma
         # The file stem for one diagram: its PlantUML name, sanitised, made
         # unique within the document; a timestamp when it has no usable name.
         def base_name(document, source)
-          name = sanitize(::Sirena::Notation::PlantUML::DiagramName
+          name = sanitize(::Etassia::Notation::PlantUML::DiagramName
                             .read(source).to_s)
           return "plantuml_#{Time.now.strftime('%Y%m%d_%H%M%S_%L')}" if name.empty?
 

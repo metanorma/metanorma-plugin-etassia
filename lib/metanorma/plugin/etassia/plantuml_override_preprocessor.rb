@@ -6,8 +6,8 @@ require_relative "plantuml_image_macro_processor"
 
 module Metanorma
   module Plugin
-    module Sirena
-      # Keeps `[plantuml]` and `plantuml_image::` on Sirena when another handler registered the same
+    module Etassia
+      # Keeps `[plantuml]` and `plantuml_image::` on Etassia when another handler registered the same
       # block name after this gem did.
       #
       # Asciidoctor lets the last registration of a block name win, and a

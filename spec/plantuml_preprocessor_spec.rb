@@ -3,7 +3,7 @@
 require "spec_helper"
 require "tmpdir"
 
-RSpec.describe Metanorma::Plugin::Sirena::PlantumlPreprocessor do
+RSpec.describe Metanorma::Plugin::Etassia::PlantumlPreprocessor do
   let(:dir) { Dir.mktmpdir("plantuml-pre") }
   let(:pre) { described_class.new([dir]) }
 
