@@ -9,10 +9,10 @@ require "rexml/document"
 #
 # Every fixture is in exactly one of two tables. RENDERED fixtures must give
 # an image holding valid SVG (and, where listed, the key text). NOT_APPLICABLE
-# fixtures need something Sirena does not set out to provide, stated per
+# fixtures need something Etassia does not set out to provide, stated per
 # fixture; the drop-in contract for them is a warning and the upstream-style
 # source listing, never an exception.
-RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor,
+RSpec.describe Metanorma::Plugin::Etassia::PlantumlBlockProcessor,
                "upstream fixture corpus" do
   include ConvertHelper
 
@@ -43,7 +43,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor,
     "subpart" => "stuff4",
     # Activity `kill`.
     "plantuml-lrg-6-5" => "condition?",
-    # Class and state diagrams, rendered by Sirena's PlantUML class and
+    # Class and state diagrams, rendered by Etassia's PlantUML class and
     # state families (sirena#353).
     "plantuml-lrg-3-8" => "getName()",
     "plantuml-lrg-3-10" => "On last defined class",
@@ -52,7 +52,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor,
     "plantuml-lrg-3-35-4" => "[blue,plain,16]",
     "plantuml-lrg-9-3-1" => "NewValuePreview",
     "plantuml-lrg-9-5" => "Accumulate Enough Data",
-    # Families Sirena renders since the pinned revision (see Gemfile).
+    # Families Etassia renders since the pinned revision (see Gemfile).
     "plantuml-lrg-15-2" => "VPN Server",
     "plantuml-lrg-6-25-2" => "test of color",
     "plantuml-custom-filename" => "My_Number",
@@ -63,7 +63,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor,
     "plantuml-lrg-10-7-2" => "Season",
     "plantuml-lrg-20-3" => "card_id : number",
     # Json, yaml, mindmap, WBS, gantt and object/map diagrams, rendered by
-    # Sirena since the pinned revision (see Gemfile).
+    # Etassia since the pinned revision (see Gemfile).
     "plantuml-lrg-11-1" => "212 555-1234",
     "plantuml-lrg-11-2" => "postalCode",
     "plantuml-lrg-11-3" => "646 555-4567",
@@ -115,7 +115,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor,
   end
 
   rendered.each do |name, text|
-    it "renders #{name} through Sirena" do
+    it "renders #{name} through Etassia" do
       html = convert_adoc(block.call(File.read(File.join(corpus_dir, "#{name}.puml"))), attrs)
       svg_path = File.join(dir, html[/src="([^"]+\.svg)"/, 1])
       svg = File.read(svg_path)

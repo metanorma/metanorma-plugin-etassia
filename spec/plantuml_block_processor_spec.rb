@@ -2,7 +2,7 @@
 
 require "spec_helper"
 
-RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor do
+RSpec.describe Metanorma::Plugin::Etassia::PlantumlBlockProcessor do
   include ConvertHelper
 
   let(:dir) { Dir.mktmpdir("plantuml-spec") }
@@ -76,7 +76,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor do
       expect(html).to include('id="fig1"', "A figure", 'width="300"')
     end
 
-    it "renders @startuml sequence diagrams through Sirena's PlantUML notation" do
+    it "renders @startuml sequence diagrams through Etassia's PlantUML notation" do
       html = convert("@startuml\nAlice -> Bob: hi\nBob --> Alice: ok\n@enduml",
                      "plantuml")
       expect(html).to include("<img")
@@ -94,7 +94,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor do
     end
   end
 
-  describe "output names (Sirena's diagram name)" do
+  describe "output names (Etassia's diagram name)" do
     def svgs
       Dir[File.join(images, "*.svg")].map { |f| File.basename(f) }.sort
     end
@@ -153,7 +153,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlBlockProcessor do
         .to output(/without matching @endsalt/).to_stderr
     end
 
-    it "falls back, naming the limit, for formats Sirena cannot produce" do
+    it "falls back, naming the limit, for formats Etassia cannot produce" do
       html = nil
       expect { html = convert(fixture("simple.puml"), "plantuml,format=png") }
         .to output(/SVG only/).to_stderr

@@ -6,8 +6,8 @@ require "fileutils"
 
 module Metanorma
   module Plugin
-    module Sirena
-      # Renders diagram blocks through Sirena, the pure-Ruby diagram
+    module Etassia
+      # Renders diagram blocks through Etassia, the pure-Ruby diagram
       # interpreter. Drop-in for the `[plantuml]` block of
       # metanorma-plugin-plantuml: same block name, same format options,
       # no Java and no external renderer.
@@ -20,17 +20,17 @@ module Metanorma
         def process(parent, reader, attrs)
           source = reader.source
 
-          svg = ::Sirena.render(source, format: "svg")
+          svg = ::Etassia.render(source, format: "svg")
           image_path = write_image(parent, svg, attrs)
           create_image_block(parent, image_path, attrs)
         rescue StandardError => e
-          warn "sirena: #{e.message}"
-          create_pass_block(parent, "sirena: #{e.message}", attrs)
+          warn "etassia: #{e.message}"
+          create_pass_block(parent, "etassia: #{e.message}", attrs)
         end
 
         private
 
-        # Sirena renders SVG only, so the file is always SVG whatever
+        # Etassia renders SVG only, so the file is always SVG whatever
         # `format` asks for. The target stays inside the images directory,
         # which is resolved against the document directory and created.
         def write_image(parent, svg, attrs)

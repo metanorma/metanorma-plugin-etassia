@@ -2,9 +2,9 @@
 
 module Metanorma
   module Plugin
-    module Sirena
+    module Etassia
       # Expands PlantUML's file-inclusion directives before the source is
-      # handed to Sirena, which sees one self-contained diagram.
+      # handed to Etassia, which sees one self-contained diagram.
       #
       # Handles `!include`, `!include_many`, `!include_once`, `!includesub`
       # and the `!startsub NAME` / `!endsub` markers, with PlantUML's
@@ -97,7 +97,7 @@ module Metanorma
         def resolve(path)
           if path.start_with?("<") || path.match?(%r{\A\w+://})
             raise "PlantUML !include #{path} needs PlantUML's standard " \
-                  "library or the network, which Sirena does not have"
+                  "library or the network, which Etassia does not have"
           end
 
           @dirs.each do |dir|

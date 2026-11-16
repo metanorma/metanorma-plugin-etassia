@@ -5,10 +5,10 @@ require_relative "plantuml_rendering"
 
 module Metanorma
   module Plugin
-    module Sirena
+    module Etassia
       # Drop-in for metanorma-plugin-plantuml's `[plantuml]` block: same block
       # name, contexts, format attributes and image emission, but the diagram
-      # is rendered by Sirena instead of the PlantUML JAR (see
+      # is rendered by Etassia instead of the PlantUML JAR (see
       # {PlantumlRendering} for the shared behaviour).
       class PlantumlBlockProcessor < ::Asciidoctor::Extensions::BlockProcessor
         include PlantumlRendering

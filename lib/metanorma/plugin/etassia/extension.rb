@@ -10,16 +10,16 @@ require_relative "plantuml_override_preprocessor"
 
 module Metanorma
   module Plugin
-    module Sirena
+    module Etassia
       class Extensions
         # AsciiDoc extension registration: the `sirena` block and the
         # drop-in `[plantuml]` block and
         # `plantuml_image::` block macro.
         ::Asciidoctor::Extensions.register do
-          block ::Metanorma::Plugin::Sirena::BlockProcessor
-          block ::Metanorma::Plugin::Sirena::PlantumlBlockProcessor
-          block_macro ::Metanorma::Plugin::Sirena::PlantumlImageMacroProcessor
-          preprocessor ::Metanorma::Plugin::Sirena::PlantumlOverridePreprocessor
+          block ::Metanorma::Plugin::Etassia::BlockProcessor
+          block ::Metanorma::Plugin::Etassia::PlantumlBlockProcessor
+          block_macro ::Metanorma::Plugin::Etassia::PlantumlImageMacroProcessor
+          preprocessor ::Metanorma::Plugin::Etassia::PlantumlOverridePreprocessor
         end
       end
     end

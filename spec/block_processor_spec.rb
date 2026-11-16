@@ -1,7 +1,7 @@
 require "spec_helper"
 require "tmpdir"
 
-RSpec.describe Metanorma::Plugin::Sirena::BlockProcessor do
+RSpec.describe Metanorma::Plugin::Etassia::BlockProcessor do
   it "registers the sirena block" do
     html = Asciidoctor.convert(<<~ADOC, extension_registry: registry)
       [sirena]
@@ -47,7 +47,7 @@ RSpec.describe Metanorma::Plugin::Sirena::BlockProcessor do
 
   def registry
     @registry ||= Asciidoctor::Extensions.create do
-      block Metanorma::Plugin::Sirena::BlockProcessor
+      block Metanorma::Plugin::Etassia::BlockProcessor
     end
   end
 end

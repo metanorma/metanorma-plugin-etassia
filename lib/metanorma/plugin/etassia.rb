@@ -1,4 +1,4 @@
 # frozen_string_literal: true
 
-require_relative "sirena/version"
-require_relative "sirena/extension"
+require_relative "etassia/version"
+require_relative "etassia/extension"

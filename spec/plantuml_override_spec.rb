@@ -5,7 +5,7 @@ require "spec_helper"
 # A Metanorma flavour registers metanorma-plugin-plantuml after this gem was
 # required; Asciidoctor then lets that later registration win. The swap must
 # hold whatever the registration order.
-RSpec.describe Metanorma::Plugin::Sirena::PlantumlOverridePreprocessor do
+RSpec.describe Metanorma::Plugin::Etassia::PlantumlOverridePreprocessor do
   include ConvertHelper
 
   let(:dir) { Dir.mktmpdir("plantuml-override") }
@@ -25,7 +25,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlOverridePreprocessor do
   def convert_with(*processors)
     registry = Asciidoctor::Extensions.create do
       processors.each { |p| block p }
-      preprocessor Metanorma::Plugin::Sirena::PlantumlOverridePreprocessor
+      preprocessor Metanorma::Plugin::Etassia::PlantumlOverridePreprocessor
     end
     Asciidoctor.convert(plantuml_block(fixture("simple.puml")),
                         safe: :safe, standalone: false,
@@ -35,15 +35,15 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlOverridePreprocessor do
 
   after { FileUtils.remove_entry(dir) }
 
-  it "renders through Sirena when a rival handler registered later" do
-    html = convert_with(Metanorma::Plugin::Sirena::PlantumlBlockProcessor,
+  it "renders through Etassia when a rival handler registered later" do
+    html = convert_with(Metanorma::Plugin::Etassia::PlantumlBlockProcessor,
                         rival)
     expect(html).to include("_plantuml_images/").and include(".svg")
     expect(html).not_to include("RIVAL:")
   end
 
-  it "leaves a document with only Sirena's handler unchanged" do
-    html = convert_with(Metanorma::Plugin::Sirena::PlantumlBlockProcessor)
+  it "leaves a document with only Etassia's handler unchanged" do
+    html = convert_with(Metanorma::Plugin::Etassia::PlantumlBlockProcessor)
     expect(html).to include(".svg")
   end
 end

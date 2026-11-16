@@ -11,9 +11,9 @@ end
 # The swap for real: the Metanorma standoc flavour loads
 # metanorma-plugin-plantuml and registers its `[plantuml]` handler itself,
 # after this gem. With no edit to the document, the block still renders
-# through Sirena (no PlantUML processing-instruction in the output, and no
+# through Etassia (no PlantUML processing-instruction in the output, and no
 # Java involved).
-RSpec.describe "Metanorma flavour with metanorma-plugin-sirena loaded",
+RSpec.describe "Metanorma flavour with metanorma-plugin-etassia loaded",
                skip: (defined?(Metanorma::Standoc::Converter) ? false : "metanorma-standoc not installed") do
   let(:dir) { Dir.mktmpdir("plantuml-flavor") }
   let(:adoc) do
@@ -39,7 +39,7 @@ RSpec.describe "Metanorma flavour with metanorma-plugin-sirena loaded",
 
   after { FileUtils.remove_entry(dir) }
 
-  it "renders an unchanged [plantuml] block through Sirena" do
+  it "renders an unchanged [plantuml] block through Etassia" do
     xml = Asciidoctor.convert(adoc, backend: :standoc, safe: :safe,
                                     standalone: true)
     svg = Dir[File.join(dir, "_plantuml_images", "*.svg")]

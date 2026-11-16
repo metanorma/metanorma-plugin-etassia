@@ -3,8 +3,8 @@
 require "spec_helper"
 
 # `plantuml_image::file.puml[]` is registered by metanorma-standoc for the
-# PlantUML JAR (PNG). With this gem loaded it renders through Sirena (SVG).
-RSpec.describe Metanorma::Plugin::Sirena::PlantumlImageMacroProcessor do
+# PlantUML JAR (PNG). With this gem loaded it renders through Etassia (SVG).
+RSpec.describe Metanorma::Plugin::Etassia::PlantumlImageMacroProcessor do
   include ConvertHelper
 
   let(:dir) { Dir.mktmpdir("plantuml-macro") }
@@ -70,7 +70,7 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlImageMacroProcessor do
     expect(html).not_to include("<img")
   end
 
-  it "reports a format Sirena cannot render" do
+  it "reports a format Etassia cannot render" do
     html = nil
     expect { html = convert("plantuml_image::m.puml[format=png]") }
       .to output(/SVG only/).to_stderr
@@ -94,12 +94,12 @@ RSpec.describe Metanorma::Plugin::Sirena::PlantumlImageMacroProcessor do
       end
     end
 
-    it "still renders through Sirena" do
+    it "still renders through Etassia" do
       later = rival
       registry = Asciidoctor::Extensions.create do
-        block_macro Metanorma::Plugin::Sirena::PlantumlImageMacroProcessor
+        block_macro Metanorma::Plugin::Etassia::PlantumlImageMacroProcessor
         block_macro later
-        preprocessor Metanorma::Plugin::Sirena::PlantumlOverridePreprocessor
+        preprocessor Metanorma::Plugin::Etassia::PlantumlOverridePreprocessor
       end
       html = convert("plantuml_image::m.puml[]", attributes, registry)
       expect(html).to include("_plantuml_images/my_diagram.svg")

@@ -3,7 +3,7 @@
 require "open3"
 require "rbconfig"
 
-RSpec.describe "metanorma-plugin-sirena gem entry point" do
+RSpec.describe "metanorma-plugin-etassia gem entry point" do
   let(:lib) { File.expand_path("../lib", __dir__) }
 
   def run_ruby(code)
@@ -12,17 +12,17 @@ RSpec.describe "metanorma-plugin-sirena gem entry point" do
 
   it "loads the plugin when required by gem name" do
     out, status = run_ruby(<<~RUBY)
-      require "metanorma-plugin-sirena"
-      puts defined?(Metanorma::Plugin::Sirena::PlantumlBlockProcessor).inspect
+      require "metanorma-plugin-etassia"
+      puts defined?(Metanorma::Plugin::Etassia::PlantumlBlockProcessor).inspect
     RUBY
 
     expect(status).to be_success, out
     expect(out.lines.last.strip).to eq('"constant"')
   end
 
-  it "renders a [plantuml] block through Sirena after a gem-name require" do
+  it "renders a [plantuml] block through Etassia after a gem-name require" do
     out, status = run_ruby(<<~RUBY)
-      require "metanorma-plugin-sirena"
+      require "metanorma-plugin-etassia"
       require "asciidoctor"
       require "tmpdir"
       Dir.chdir(Dir.mktmpdir)
