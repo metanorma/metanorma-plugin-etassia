@@ -1,31 +1,34 @@
-= metanorma-plugin-sirena
+= metanorma-plugin-etassia
 
-Metanorma AsciiDoc extension that renders diagram blocks through https://github.com/claricle/sirena[Sirena], the pure-Ruby diagram interpreter — no Java, no external renderer, no server.
+Metanorma AsciiDoc extension that renders diagram blocks through https://github.com/etassia/etassia[Etassia], the pure-Ruby diagram interpreter — no Java, no external renderer, no server.
 
 == Purpose
 
-Replaces the metanorma-plugin-plantuml pipeline (PlantUML JAR / server) with Sirena: the same `[plantuml]`-style authoring experience, rendered in-process by an owned engine.
+Replaces the metanorma-plugin-plantuml pipeline (PlantUML JAR / server) with Etassia: the same `[plantuml]`-style authoring experience, rendered in-process by an owned engine.
 
 == Status
 
-Scaffold. The `sirena` block processor is registered; the `[plantuml]` drop-in handler and the Sirena PlantUML language support it needs are tracked in claricle/sirena. Test corpus: mn-samples-pdfa `sources/bpg-tagged-pdf-syntax` (real `[plantuml]`/`@startsalt` documents).
+The `etassia` block, the `[plantuml]` drop-in block and the `plantuml_image::` macro are registered. Test corpus: mn-samples-pdfa `sources/bpg-tagged-pdf-syntax` (real `[plantuml]`/`@startsalt` documents).
 
 == Usage
 
-[sourcer]
+[source,adoc]
 ----
-[sirena]
+[etassia]
 ....
 <diagram source>
 ....
 ----
+
+Etassia was formerly named Sirena. The `[sirena]` block name still works and
+renders exactly as `[etassia]` does, so existing documents keep compiling.
 
 == `plantuml_image::` macro
 
 The block macro `plantuml_image::file.puml[]` (registered by metanorma-standoc
 for the PlantUML JAR) is also taken over. The file is read relative to the
 document, `!include` also resolves beside it, and the diagram is rendered by
-Sirena to an SVG under `_plantuml_images/`, with the same attributes as the
+Etassia to an SVG under `_plantuml_images/`, with the same attributes as the
 `[plantuml]` block (`id`, `title`, `width`, `alt`, ...). A failure warns and
 falls back to a listing. Only SVG is produced; `png`, `pdf`, `txt` and `eps`
 are reported as unsupported.
@@ -41,7 +44,7 @@ blocks are rendered by the stock PlantUML plugin (Java). Load it explicitly:
 
 [source,sh]
 ----
-bundle exec metanorma compile -r metanorma-plugin-sirena -t <flavour> doc.adoc
+bundle exec metanorma compile -r metanorma-plugin-etassia -t <flavour> doc.adoc
 ----
 
 == License
