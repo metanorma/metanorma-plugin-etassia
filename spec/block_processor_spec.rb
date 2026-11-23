@@ -45,6 +45,23 @@ RSpec.describe Metanorma::Plugin::Etassia::BlockProcessor do
     end
   end
 
+  context "with the extension as the plugin registers it" do
+    let(:dir) { Dir.mktmpdir }
+    let(:diagram) { "graph TD\n  A-->B" }
+
+    after { FileUtils.remove_entry(dir) }
+
+    %w[sirena etassia].each do |name|
+      it "renders a [#{name}] block to an svg image" do
+        adoc = "[#{name},target=a.svg]\n....\n#{diagram}\n....\n"
+        html = Asciidoctor.convert(adoc, safe: :unsafe,
+                                         attributes: { "docdir" => dir })
+        expect(html).to include('src="a.svg"')
+        expect(File.read(File.join(dir, "a.svg"))).to include("<svg")
+      end
+    end
+  end
+
   def registry
     @registry ||= Asciidoctor::Extensions.create do
       block Metanorma::Plugin::Etassia::BlockProcessor

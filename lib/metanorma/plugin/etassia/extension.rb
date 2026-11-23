@@ -12,11 +12,12 @@ module Metanorma
   module Plugin
     module Etassia
       class Extensions
-        # AsciiDoc extension registration: the `sirena` block and the
-        # drop-in `[plantuml]` block and
-        # `plantuml_image::` block macro.
+        # AsciiDoc extension registration: the `etassia` block, its
+        # `sirena` name kept for existing documents, the drop-in
+        # `[plantuml]` block and `plantuml_image::` block macro.
         ::Asciidoctor::Extensions.register do
           block ::Metanorma::Plugin::Etassia::BlockProcessor
+          block ::Metanorma::Plugin::Etassia::BlockProcessor, :etassia
           block ::Metanorma::Plugin::Etassia::PlantumlBlockProcessor
           block_macro ::Metanorma::Plugin::Etassia::PlantumlImageMacroProcessor
           preprocessor ::Metanorma::Plugin::Etassia::PlantumlOverridePreprocessor
